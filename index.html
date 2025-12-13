@@ -32,37 +32,39 @@
         
         <!-- Header -->
         <header class="p-4 bg-indigo-600 text-white text-center rounded-t-xl">
-            <h1 class="text-3xl font-extrabold">🚀 Story Sprouts for English</h1>
-            <p class="text-sm opacity-90">Listen, Read, and Learn!</p>
+            <h1 class="text-xl sm:text-3xl font-extrabold">🚀 Story Sprouts for English</h1>
+            <p class="text-xs sm:text-sm opacity-90">Listen, Read, and Learn!</p>
         </header>
 
         <!-- Story Content Area -->
-        <main class="flex-grow p-6 md:p-8 space-y-6">
+        <!-- Reduced vertical space (space-y-4) compared to previous (space-y-6) -->
+        <main class="flex-grow p-4 sm:p-6 md:p-8 space-y-4">
             
             <!-- Image Display -->
-            <div class="relative bg-gray-200 rounded-lg overflow-hidden border-4 border-indigo-200 aspect-video flex items-center justify-center">
+            <div class="relative bg-gray-200 rounded-lg overflow-hidden border-4 border-indigo-200 aspect-[16/10] sm:aspect-video flex items-center justify-center">
                 <!-- Image element with error fallback -->
                 <img id="story-image" src="" alt="Story illustration" class="w-full h-full object-contain transition-opacity duration-500"
                      onerror="this.onerror=null; this.src='https://placehold.co/800x450/ef4444/ffffff?text=Image+Load+Error'; document.getElementById('loading-indicator').classList.add('hidden');">
                 <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-70 text-white text-lg font-bold hidden">Loading...</div>
             </div>
 
-            <!-- Subtitle/Text Area (Used for Story Text AND Quiz Question) -->
-            <div id="text-area-wrapper" class="bg-white p-4 rounded-lg shadow-inner border border-gray-200 min-h-[5rem] flex items-center justify-center">
-                <p id="story-text" class="text-xl md:text-2xl text-gray-800 font-semibold text-center leading-relaxed">Click "Next" to begin the story!</p>
+            <!-- Subtitle/Text Area (Caption - Reduced Font Size) -->
+            <div id="text-area-wrapper" class="bg-white p-3 sm:p-4 rounded-lg shadow-inner border border-gray-200 min-h-[4rem] sm:min-h-[5rem] flex items-center justify-center">
+                <!-- Reduced text size: text-lg on mobile, text-xl on desktop -->
+                <p id="story-text" class="text-lg md:text-xl text-gray-800 font-semibold text-center leading-relaxed">Click "Next" to begin the story!</p>
             </div>
 
-            <!-- Quiz Area (Buttons for Answers) -->
-            <div id="quiz-area" class="space-y-4 hidden pt-4">
-                <p class="text-lg md:text-xl text-gray-700 font-medium text-center" id="quiz-title">Test Your Knowledge!</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Quiz Buttons -->
-                    <button data-answer="A" id="answer-A" class="quiz-btn px-4 py-3 bg-indigo-100 text-indigo-800 font-bold rounded-xl hover:bg-indigo-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">A: Option A</button>
-                    <button data-answer="B" id="answer-B" class="quiz-btn px-4 py-3 bg-indigo-100 text-indigo-800 font-bold rounded-xl hover:bg-indigo-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">B: Option B</button>
-                    <button data-answer="C" id="answer-C" class="quiz-btn px-4 py-3 bg-indigo-100 text-indigo-800 font-bold rounded-xl hover:bg-indigo-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">C: Option C</button>
-                    <button data-answer="D" id="answer-D" class="quiz-btn px-4 py-3 bg-indigo-100 text-indigo-800 font-bold rounded-xl hover:bg-indigo-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">D: Option D</button>
+            <!-- Quiz Area (Buttons for Answers - Reduced Size) -->
+            <div id="quiz-area" class="space-y-3 hidden pt-3">
+                <p class="text-base sm:text-xl text-gray-700 font-medium text-center" id="quiz-title">Test Your Knowledge!</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <!-- Quiz Buttons - Reduced padding on mobile -->
+                    <button data-answer="A" id="answer-A" class="quiz-btn px-3 py-2 sm:px-4 sm:py-3 bg-indigo-100 text-indigo-800 text-base sm:text-lg font-bold rounded-xl hover:bg-indigo-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">A: Option A</button>
+                    <button data-answer="B" id="answer-B" class="quiz-btn px-3 py-2 sm:px-4 sm:py-3 bg-indigo-100 text-indigo-800 text-base sm:text-lg font-bold rounded-xl hover:bg-indigo-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">B: Option B</button>
+                    <button data-answer="C" id="answer-C" class="quiz-btn px-3 py-2 sm:px-4 sm:py-3 bg-indigo-100 text-indigo-800 text-base sm:text-lg font-bold rounded-xl hover:bg-indigo-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">C: Option C</button>
+                    <button data-answer="D" id="answer-D" class="quiz-btn px-3 py-2 sm:px-4 sm:py-3 bg-indigo-100 text-indigo-800 text-base sm:text-lg font-bold rounded-xl hover:bg-indigo-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">D: Option D</button>
                 </div>
-                <p id="quiz-feedback" class="text-center text-xl font-extrabold min-h-[1.5rem] pt-2"></p>
+                <p id="quiz-feedback" class="text-center text-lg sm:text-xl font-extrabold min-h-[1.5rem] pt-2"></p>
             </div>
 
         </main>
@@ -70,8 +72,8 @@
         <!-- Controls and Navigation -->
         <footer class="p-4 bg-white border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             
-            <!-- Audio Playback Button (Fallback if audio doesn't auto-play) -->
-            <button id="play-audio-btn" class="w-full sm:w-auto px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full shadow-lg transition duration-200 disabled:opacity-50 flex items-center justify-center">
+            <!-- Audio Playback Button - Reduced padding/size on mobile -->
+            <button id="play-audio-btn" class="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 bg-green-500 hover:bg-green-600 text-white text-base sm:text-lg font-bold rounded-full shadow-lg transition duration-200 disabled:opacity-50 flex items-center justify-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12"></path>
@@ -83,16 +85,16 @@
             <!-- Hidden Audio Element -->
             <audio id="story-audio" class="hidden"></audio>
 
-            <!-- Navigation Buttons -->
+            <!-- Navigation Buttons - Reduced padding/size on mobile -->
             <div class="flex space-x-4">
                 <!-- Previous Button -->
-                <button id="prev-btn" class="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded-full shadow transition duration-200 disabled:opacity-50 flex items-center" disabled>
+                <button id="prev-btn" class="px-4 py-2 sm:px-6 sm:py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 text-base sm:text-lg font-bold rounded-full shadow transition duration-200 disabled:opacity-50 flex items-center" disabled>
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
                     Previous
                 </button>
                 
                 <!-- Next Button -->
-                <button id="next-btn" class="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-full shadow-lg transition duration-200 flex items-center">
+                <button id="next-btn" class="px-4 py-2 sm:px-6 sm:py-3 bg-indigo-500 hover:bg-indigo-600 text-white text-base sm:text-lg font-bold rounded-full shadow-lg transition duration-200 flex items-center">
                     Next
                     <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
                 </button>
@@ -139,7 +141,7 @@
             }
         ];
 
-        // --- STORY DATA (Expanded to 1 Intro + 14 Pages + 1 Quiz Trigger = 16 pages total) ---
+        // --- STORY DATA (1 Intro + 14 Pages + 1 Quiz Trigger = 16 pages total) ---
         const storyData = [
             // Page 0 (Index 0): INTRO PAGE
             {
