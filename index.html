@@ -105,6 +105,7 @@
         const GITHUB_BASE = 'https://raw.githubusercontent.com/0xdfkoikoi/joanna/refs/heads/main/story/';
         
         // --- QUIZ DATA ---
+        // These questions remain the same, triggering after the 14th story page.
         const quizQuestions = [
             {
                 question: "What was the name of the friendly little squirrel in the story?",
@@ -138,25 +139,51 @@
             }
         ];
 
-        // --- STORY DATA ---
+        // --- STORY DATA (Expanded to 14 Pages + 1 Quiz Trigger) ---
         const storyData = [
+            // Page 1 (Index 0) - Original
             {
                 image: GITHUB_BASE + '1.jpg',
                 audio: GITHUB_BASE + '1.mp3',
                 text: "Once upon a time, there was a friendly little squirrel named Squeaky, ready for an adventure."
             },
+            // Page 2 (Index 1) - Original
             {
                 image: GITHUB_BASE + '2.jpg',
                 audio: GITHUB_BASE + '2.mp3', 
                 text: "Squeaky jumped up and down on a mossy log, hoping to find a big, shiny nut."
             },
+            // Page 3 (Index 2) - Updated to use 3.jpg/mp3
             {
-                image: 'https://placehold.co/800x450/10b981/ffffff?text=Page+3:+The+Big+Find',
-                audio: GITHUB_BASE + '1.mp3', // Reusing the first audio for demo purposes
+                image: GITHUB_BASE + '3.jpg', 
+                audio: GITHUB_BASE + '3.mp3', 
                 text: "Success! He found the biggest nut in the whole forest. It was a perfect reward for his efforts."
             },
+            // Page 4 (Index 3)
+            { image: GITHUB_BASE + '4.jpg', audio: GITHUB_BASE + '4.mp3', text: "Page 4: The journey continued, taking Squeaky through fields of bright flowers." },
+            // Page 5 (Index 4)
+            { image: GITHUB_BASE + '5.jpg', audio: GITHUB_BASE + '5.mp3', text: "Page 5: He met a friendly bunny who showed him a secret path." },
+            // Page 6 (Index 5)
+            { image: GITHUB_BASE + '6.jpg', audio: GITHUB_BASE + '6.mp3', text: "Page 6: The path led to a crystal-clear stream where he took a sip of water." },
+            // Page 7 (Index 6)
+            { image: GITHUB_BASE + '7.jpg', audio: GITHUB_BASE + '7.mp3', text: "Page 7: Squeaky climbed a very tall tree to see the entire forest from above." },
+            // Page 8 (Index 7)
+            { image: GITHUB_BASE + '8.jpg', audio: GITHUB_BASE + '8.mp3', text: "Page 8: From the top, he saw a beautiful rainbow arching over the hills." },
+            // Page 9 (Index 8)
+            { image: GITHUB_BASE + '9.jpg', audio: GITHUB_BASE + '9.mp3', text: "Page 9: He slid down the tree using a vine like a swing." },
+            // Page 10 (Index 9)
+            { image: GITHUB_BASE + '10.jpg', audio: GITHUB_BASE + '10.mp3', text: "Page 10: As evening approached, the fireflies started twinkling all around him." },
+            // Page 11 (Index 10)
+            { image: GITHUB_BASE + '11.jpg', audio: GITHUB_BASE + '11.mp3', text: "Page 11: Squeaky found a warm, soft patch of moss to rest for a moment." },
+            // Page 12 (Index 11)
+            { image: GITHUB_BASE + '12.jpg', audio: GITHUB_BASE + '12.mp3', text: "Page 12: He gathered some sweet berries to eat for his supper." },
+            // Page 13 (Index 12)
+            { image: GITHUB_BASE + '13.jpg', audio: GITHUB_BASE + '13.mp3', text: "Page 13: A wise old owl flew down and shared a story of the ancient forest." },
+            // Page 14 (Index 13) - The final story page
+            { image: GITHUB_BASE + '14.jpg', audio: GITHUB_BASE + '14.mp3', text: "Page 14: Finally, Squeaky returned home, tired but happy from his long adventure." },
+            
+            // Page 15 (Index 14): QUIZ PAGE Trigger - The new QUIZ_INDEX
             {
-                // Page 4: QUIZ PAGE Trigger (Index 3)
                 image: 'https://placehold.co/800x450/4f46e5/ffffff?text=QUIZ+TIME',
                 audio: GITHUB_BASE + '1.mp3', 
                 text: "You have finished the story! Now, test your knowledge.",
@@ -187,7 +214,7 @@
         const quizButtons = document.querySelectorAll('.quiz-btn');
         const quizQuestionWrapper = document.getElementById('text-area-wrapper');
 
-        const QUIZ_INDEX = storyData.length - 1;
+        const QUIZ_INDEX = storyData.length - 1; // Now correctly calculates as 14
 
 
         /**
@@ -435,10 +462,10 @@
                     loadStoryPage(0);
                 }
             } else if (isLastStoryPage) {
-                // Transition from last story page to the quiz trigger page
+                // Transition from last story page to the quiz trigger page (Index 14)
                 loadStoryPage(QUIZ_INDEX);
             } else if (currentPageIndex < QUIZ_INDEX) {
-                // Normal page progression (0 -> 1, 1 -> 2)
+                // Normal page progression
                 loadStoryPage(currentPageIndex + 1);
             }
         });
