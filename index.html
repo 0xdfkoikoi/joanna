@@ -136,7 +136,7 @@
                 question: "What is the main lesson of the story?",
                 options: {
                     A: "If you take a shortcuts you will win",
-                    B: "Fast animal always win",
+                    B: "Fasrt animal always win",
                     C: "Staying patient and consistent can lead to success", // Correct
                     D: "Being slow means you cannot win"
                 },
@@ -308,8 +308,32 @@
                     
                     // Load and play the quiz question audio
                     storyAudio.pause();
+                    storyAudio.currentTime = 0;
                     storyAudio.src = currentQuizQuestion.audio;
-                    playCurrentAudio();
+                    // Try to play immediately (within user interaction context from Next button click)
+                    // The browser will handle loading if needed
+                    const playPromise = storyAudio.play();
+                    if (playPromise !== undefined) {
+                        playPromise
+                            .then(() => {
+                                isAudioPlaying = true;
+                                playAudioText.textContent = 'Listening...';
+                                playAudioBtn.disabled = false;
+                            })
+                            .catch(error => {
+                                // Autoplay blocked or audio not ready - user can click play button
+                                console.log("Quiz audio autoplay blocked or not ready:", error);
+                                isAudioPlaying = false;
+                                playAudioText.textContent = 'Click to Play Question';
+                                playAudioBtn.disabled = false;
+                                // Preload the audio so it's ready when user clicks
+                                storyAudio.load();
+                            });
+                    } else {
+                        // Fallback for older browsers
+                        playAudioBtn.disabled = false;
+                        playAudioText.textContent = 'Click to Play Question';
+                    }
                     
                     // Since a question is loaded, the next button should be disabled until answered
                     nextBtn.disabled = true;
@@ -352,17 +376,34 @@
             storyAudio.pause();
             storyAudio.currentTime = 0;
             
-            storyAudio.play()
-                .then(() => {
-                    playAudioBtn.disabled = false;
-                    isAudioPlaying = true;
-                    playAudioText.textContent = 'Listening...';
-                })
-                .catch(error => {
-                    console.error("Audio playback failed (usually due to autoplay restrictions).", error);
-                    playAudioBtn.disabled = false;
-                    playAudioText.textContent = 'Listen Again';
-                });
+            // Ensure audio is loaded before playing
+            if (storyAudio.readyState < 2) {
+                storyAudio.load();
+                storyAudio.addEventListener('canplay', function tryPlay() {
+                    storyAudio.removeEventListener('canplay', tryPlay);
+                    attemptPlay();
+                }, { once: true });
+            } else {
+                attemptPlay();
+            }
+            
+            function attemptPlay() {
+                const playPromise = storyAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            playAudioBtn.disabled = false;
+                            isAudioPlaying = true;
+                            playAudioText.textContent = 'Listening...';
+                        })
+                        .catch(error => {
+                            console.error("Audio playback failed (usually due to autoplay restrictions).", error);
+                            playAudioBtn.disabled = false;
+                            playAudioText.textContent = 'Click to Play';
+                            isAudioPlaying = false;
+                        });
+                }
+            }
         }
         
         /**
