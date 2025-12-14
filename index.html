@@ -110,6 +110,7 @@
         // These questions remain the same, triggering after the last story page.
         const quizQuestions = [
             {
+                audio: GITHUB_BASE + 'q1.mp3',
                 question: "Why did Harold lose the race?",
                 options: {
                     A: "he was not fast enough",
@@ -120,6 +121,7 @@
                 correctAnswer: "B"
             },
             {
+                audio: GITHUB_BASE + 'q2.mp3',
                 question: "What helped Toby win the race?",
                 options: {
                     A: "He ran very fast at the start",
@@ -130,10 +132,11 @@
                 correctAnswer: "B"
             },
             {
+                audio: GITHUB_BASE + 'q3.mp3',
                 question: "What is the main lesson of the story?",
                 options: {
                     A: "If you take a shortcuts you will win",
-                    B: "Fasrt animal always win",
+                    B: "Fast animal always win",
                     C: "Staying patient and consistent can lead to success", // Correct
                     D: "Being slow means you cannot win"
                 },
@@ -217,7 +220,11 @@
         const playAudioText = document.getElementById('play-audio-text');
         
         // Quiz DOM Elements
-        const quizArea = document.getElementById('quiz-area');
+        const quizAudio = document.getElementById('quiz-audio');
+        const playQuizAudioBtn = document.getElementById('play-quiz-audio-btn');
+        const loadingQuizIndicator = document.getElementById('loading-quiz-indicator');
+        const playQuizAudioText = document.getElementById('play-quiz-audio-text');
+        const quizArea = document.getElementById('quiz-area');  
         const quizFeedback = document.getElementById('quiz-feedback');
         const quizButtons = document.querySelectorAll('.quiz-btn');
         const quizQuestionWrapper = document.getElementById('text-area-wrapper');
@@ -299,8 +306,10 @@
                         btn.textContent = `${answerKey}: ${currentQuizQuestion.options[answerKey]}`;
                     });
                     
-                    // Stop the audio
+                    // Load and play the quiz question audio
                     storyAudio.pause();
+                    storyAudio.src = currentQuizQuestion.audio;
+                    playCurrentAudio();
                     
                     // Since a question is loaded, the next button should be disabled until answered
                     nextBtn.disabled = true;
@@ -427,8 +436,8 @@
                 }
             }
             
-            // The play button is only disabled while the audio is actively playing or on the quiz page
-            playAudioBtn.disabled = isAudioPlaying || isQuizPage;
+            // The play button is only disabled while the audio is actively playing
+            playAudioBtn.disabled = isAudioPlaying;
         }
         
         // --- Event Listeners ---
@@ -451,8 +460,15 @@
         // Manual Play Button
         playAudioBtn.addEventListener('click', () => {
             const isQuizPage = storyData[currentPageIndex]?.isQuiz || false;
-            if (currentPageIndex !== -1 && !isQuizPage) {
-                playCurrentAudio();
+            if (currentPageIndex !== -1) {
+                if (isQuizPage && currentQuizQuestion) {
+                    // Play quiz question audio
+                    storyAudio.src = currentQuizQuestion.audio;
+                    playCurrentAudio();
+                } else if (!isQuizPage) {
+                    // Play story page audio
+                    playCurrentAudio();
+                }
             }
         });
 
