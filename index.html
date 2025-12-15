@@ -107,44 +107,81 @@
         const GITHUB_BASE = 'https://raw.githubusercontent.com/0xdfkoikoi/joanna/refs/heads/main/story/';
         
         // --- QUIZ DATA ---
-        // These questions remain the same, triggering after the last story page.
-        const quizQuestions = [
-            {
-                audio: GITHUB_BASE + 'q1.mp3',
-                question: "Why did Harold lose the race?",
-                options: {
-                    A: "he was not fast enough",
-                    B: "He stopped to eat and sleep because he was overconfident", // Correct
-                    C: "He got lost in the forest",
-                    D: "Toby cheated"
+        // Questions grouped by story so each story shows its own quiz immediately after.
+        const quizPools = {
+            hare: [
+                {
+                    audio: GITHUB_BASE + 'q1.mp3',
+                    question: "Why did Harold lose the race?",
+                    options: {
+                        A: "he was not fast enough",
+                        B: "He stopped to eat and sleep because he was overconfident", // Correct
+                        C: "He got lost in the forest",
+                        D: "Toby cheated"
+                    },
+                    correctAnswer: "B"
                 },
-                correctAnswer: "B"
-            },
-            {
-                audio: GITHUB_BASE + 'q2.mp3',
-                question: "What helped Toby win the race?",
-                options: {
-                    A: "He ran very fast at the start",
-                    B: "He kept moving steadily without giving up", // Correct
-                    C: "Harold helped Toby",
-                    D: "Toby took a shortcuts"
+                {
+                    audio: GITHUB_BASE + 'q2.mp3',
+                    question: "What helped Toby win the race?",
+                    options: {
+                        A: "He ran very fast at the start",
+                        B: "He kept moving steadily without giving up", // Correct
+                        C: "Harold helped Toby",
+                        D: "Toby took a shortcuts"
+                    },
+                    correctAnswer: "B"
                 },
-                correctAnswer: "B"
-            },
-            {
-                audio: GITHUB_BASE + 'q3.mp3',
-                question: "What is the main lesson of the story?",
-                options: {
-                    A: "If you take a shortcuts you will win",
-                    B: "Fasrt animal always win",
-                    C: "Staying patient and consistent can lead to success", // Correct
-                    D: "Being slow means you cannot win"
+                {
+                    audio: GITHUB_BASE + 'q3.mp3',
+                    question: "What is the main lesson of the story?",
+                    options: {
+                        A: "If you take a shortcuts you will win",
+                        B: "Fasrt animal always win",
+                        C: "Staying patient and consistent can lead to success", // Correct
+                        D: "Being slow means you cannot win"
+                    },
+                    correctAnswer: "C"
+                }
+            ],
+            joanna: [
+                {
+                    audio: GITHUB_BASE + 'q4.mp3',
+                    question: "Why did Joanna help the little cat even though it was raining?",
+                    options: {
+                        A: "She wanted other children to praise her",
+                        B: "She wanted to keep the cat for herself",
+                        C: "She felt kindness was the right thing to do", // Correct
+                        D: "She was told by her teacher"
+                    },
+                    correctAnswer: "C"
                 },
-                correctAnswer: "C"
-            }
-        ];
+                {
+                    audio: GITHUB_BASE + 'q5.mp3',
+                    question: "What does Joanna’s response to the reward show about her character?",
+                    options: {
+                        A: "She was shy of strangers",
+                        B: "She only helped when asked",
+                        C: "She cared more about kindness than rewards", // Correct
+                        D: "She did not like gifts"
+                    },
+                    correctAnswer: "C"
+                },
+                {
+                    audio: GITHUB_BASE + 'q6.mp3',
+                    question: "What is the main lesson of the story?",
+                    options: {
+                        A: "Always take animals home",
+                        B: "Being kind without expecting anything in return is important", // Correct
+                        C: "Rewards are the best part of helping others",
+                        D: "Children should walk home in the rain"
+                    },
+                    correctAnswer: "B"
+                }
+            ]
+        };
 
-        // --- STORY DATA (1 Intro + 14 Pages + 1 Quiz Trigger = 16 pages total) ---
+        // --- STORY DATA (1 Intro + 14 Hare/Tortoise Pages + Hare Quiz + 6 Joanna Pages + Joanna Quiz = 23 pages total) ---
         const storyData = [
             // Page 0 (Index 0): INTRO PAGE
             {
@@ -152,53 +189,46 @@
                 audio: GITHUB_BASE + 'opening.mp3',
                 text: "Learn english with Joanna Stella Norton, sponsored by Toko Gangan."
             },
-            // Page 1 (Index 1) - Original Index 0
-            {
-                image: GITHUB_BASE + '1.jpg',
-                audio: GITHUB_BASE + '1.mp3',
-                text: "In a sun-dappled forest lived a very speedy hare named Harold and a deliberate, thoughtful turtle named Toby."
-            },
-            // Page 2 (Index 2) - Original Index 1
-            {
-                image: GITHUB_BASE + '2.jpg',
-                audio: GITHUB_BASE + '2.mp3', 
-                text: "Harold was known throughout the woods for his incredible speed and his even more incredible arrogance. I'm the fastest creature alive! he'd boast to anyone who would listen."
-            },
-            // Page 3 (Index 3) - Original Index 2
-            {
-                image: GITHUB_BASE + '3.jpg', 
-                audio: GITHUB_BASE + '3.mp3', 
-                text: "One afternoon, tired of the rabbit’s bragging, Toby challenged him. Let's have a race, Harold. From the big oak tree down to the riverbank."
-            },
-            // Page 4 (Index 4) - Original Index 3
+            // Hare & Tortoise Story
+            { image: GITHUB_BASE + '1.jpg', audio: GITHUB_BASE + '1.mp3', text: "In a sun-dappled forest lived a very speedy hare named Harold and a deliberate, thoughtful turtle named Toby." },
+            { image: GITHUB_BASE + '2.jpg', audio: GITHUB_BASE + '2.mp3', text: "Harold was known throughout the woods for his incredible speed and his even more incredible arrogance. I'm the fastest creature alive! he'd boast to anyone who would listen." },
+            { image: GITHUB_BASE + '3.jpg', audio: GITHUB_BASE + '3.mp3', text: "One afternoon, tired of the rabbit’s bragging, Toby challenged him. Let's have a race, Harold. From the big oak tree down to the riverbank." },
             { image: GITHUB_BASE + '4.jpg', audio: GITHUB_BASE + '4.mp3', text: "Harold roared with laughter. You? Race me? That’s the funniest thing I’ve heard all year! I accept, just so everyone can witness my greatness." },
-            // Page 5 (Index 5) - Original Index 4
             { image: GITHUB_BASE + '5.jpg', audio: GITHUB_BASE + '5.mp3', text: "The forest animals gathered to watch. The fox started the race, shouting, Go!" },
-            // Page 6 (Index 6) - Original Index 5
             { image: GITHUB_BASE + '6.jpg', audio: GITHUB_BASE + '6.mp3', text: "Harold shot forward like an arrow released from a bow. He was out of sight in seconds, leaving Toby shuffling slowly behind." },
-            // Page 7 (Index 7) - Original Index 6
             { image: GITHUB_BASE + '7.jpg', audio: GITHUB_BASE + '7.mp3', text: "As Harold approached the halfway mark, he suddenly noticed something wonderful—a lush patch of wild forest carrots growing beside the trail. Their tops were bright green, and the orange roots peeked temptingly from the soil. Harold’s mouth watered instantly." },
-            // Page 8 (Index 8) - Original Index 7
             { image: GITHUB_BASE + '8.jpg', audio: GITHUB_BASE + '8.mp3', text: "Well… a champion deserves a snack, he told himself. Besides, Toby won’t reach this spot for ages. Without hesitation, Harold darted into the garden and munched happily on a few carrots, savoring their crisp sweetness" },
-            // Page 9 (Index 9) - Original Index 8
             { image: GITHUB_BASE + '9.jpg', audio: GITHUB_BASE + '9.mp3', text: "After stuffing himself just enough to feel satisfied, he hopped back onto the path feeling proud and refreshed. He then looked back down the long, empty road. Toby was nowhere in sight—just as he expected. Harold smirked. Toby is so slow, he’ll take hours to get here, he thought. I have plenty of time for a quick nap and still win. Harold settled comfortably under a large, shady tree and quickly fell into a deep sleep, dreaming of victory banners and gold medals." },
-            // Page 10 (Index 10) - Original Index 9
             { image: GITHUB_BASE + '10.jpg', audio: GITHUB_BASE + '10.mp3', text: "Meanwhile, Toby kept moving. Step after step after step. He didn’t look back or worry about the speedy rabbit. He just focused on putting one foot in front of the other, maintaining a steady, unwavering pace" },
-            // Page 11 (Index 11) - Original Index 10
             { image: GITHUB_BASE + '11.jpg', audio: GITHUB_BASE + '11.mp3', text: "He passed the sleeping rabbit, who was snoring softly under the tree. Toby didn’t stop or break his rhythm. He knew the race wasn’t about being fast at the start; it was about finishing." },
-            // Page 12 (Index 12) - Original Index 11
             { image: GITHUB_BASE + '12.jpg', audio: GITHUB_BASE + '12.mp3', text: "A little while later, Harold awoke. He stretched, yawned, and looked toward the finish line, expecting to see Toby far behind. To his horror, he saw the turtle only a few yards from the riverbank! Harold jumped up and sprinted with all his might, a desperate blur of motion." },
-            // Page 13 (Index 13) - Original Index 12
             { image: GITHUB_BASE + '13.jpg', audio: GITHUB_BASE + '13.mp3', text: "But it was too late. Just as he reached full speed, Toby crossed the finish line. Toby the Turtle had won." },
-            // Page 14 (Index 14) - The final story page (Original Index 13)
             { image: GITHUB_BASE + '14.jpg', audio: GITHUB_BASE + '14.mp3', text: "The forest animals cheered for the unexpected victor. Harold, sweaty and defeated, learned a valuable lesson that day: Slow and steady wins the race—even if you're fast enough to snack along the way." },
-            
-            // Page 15 (Index 15): QUIZ PAGE Trigger 
+
+            // Quiz after Hare & Tortoise
             {
                 image: 'https://placehold.co/800x450/4f46e5/ffffff?text=QUIZ+TIME',
-                audio: GITHUB_BASE + '1.mp3', 
-                text: "You have finished the story! Now, test your knowledge.",
-                isQuiz: true 
+                audio: GITHUB_BASE + 'q1.mp3',
+                text: "You have finished the Hare & Tortoise story! Now, test your knowledge.",
+                isQuiz: true,
+                quizId: 'hare'
+            },
+
+            // Joanna & the Cat Story
+            { image: GITHUB_BASE + '15.jpg', audio: GITHUB_BASE + '15.mp3', text: "Joanna was a very kind and humble girl, She always spoke softly, helped others without being asked, and never bragged about the good things she did." },
+            { image: GITHUB_BASE + '16.jpg', audio: GITHUB_BASE + '16.mp3', text: "One rainy afternoon, while walking home from school, Joanna heard a tiny “meow” coming from under a wooden bench. There she found a little cat, wet, hungry, and shivering. Other children passed by, but Joanna gently picked the cat up and wrapped it in her scarf." },
+            { image: GITHUB_BASE + '17.jpg', audio: GITHUB_BASE + '17.mp3', text: "She took the little cat home, dried its fur, and shared her dinner. “You need it more than I do,” she whispered with a smile." },
+            { image: GITHUB_BASE + '18.jpg', audio: GITHUB_BASE + '18.mp3', text: "The next day, Joanna put up a small sign asking if anyone had lost a cat. Soon, an old woman came running, her eyes full of tears." },
+            { image: GITHUB_BASE + '19.jpg', audio: GITHUB_BASE + '19.mp3', text: "The woman thanked Joanna and offered her a reward, but Joanna politely shook her head. “I’m just happy the little cat is safe” she said." },
+            { image: GITHUB_BASE + '20.jpg', audio: GITHUB_BASE + '20.mp3', text: "Joanna knew that being kind—even when no one is watching—was the best reward of all." },
+
+            // Quiz after Joanna story
+            {
+                image: 'https://placehold.co/800x450/4f46e5/ffffff?text=QUIZ+TIME',
+                audio: GITHUB_BASE + 'q4.mp3',
+                text: "You have finished Joanna’s story! Now, test your knowledge.",
+                isQuiz: true,
+                quizId: 'joanna'
             }
         ];
 
@@ -207,7 +237,8 @@
         let isAudioPlaying = false;
         let isQuizAnswered = false;
         let currentQuizQuestion = null; // Stores the currently loaded quiz question
-        let unaskedQuestions = []; // Tracks questions remaining in the current quiz session
+        let currentQuizId = null; // Which quiz is active (hare, joanna, etc.)
+        const quizSessions = {}; // Tracks remaining questions per quizId
 
         // --- DOM Elements ---
         const storyImage = document.getElementById('story-image');
@@ -228,9 +259,6 @@
         const quizFeedback = document.getElementById('quiz-feedback');
         const quizButtons = document.querySelectorAll('.quiz-btn');
         const quizQuestionWrapper = document.getElementById('text-area-wrapper');
-
-        const QUIZ_INDEX = storyData.length - 1; // Now correctly calculates as 15
-
 
         /**
          * Loads and displays the specified story page.
@@ -276,29 +304,31 @@
             
             if (isQuizPage) {
                 // --- QUIZ LOGIC ---
-                
-                // If it's the *first time* landing on the quiz page (unaskedQuestions is empty)
-                if (unaskedQuestions.length === 0 && currentPageIndex === QUIZ_INDEX && !isQuizAnswered) {
-                     // Initialize and shuffle the question pool (Deep copy quizQuestions)
-                    unaskedQuestions = [...quizQuestions];
+                currentQuizId = page.quizId || 'default';
+                const pool = quizPools[currentQuizId] || [];
+
+                // Initialize or continue the question pool for this quiz
+                if (!quizSessions[currentQuizId] || quizSessions[currentQuizId].length === 0) {
+                    quizSessions[currentQuizId] = [...pool];
                     // Simple shuffle implementation (Fisher-Yates style)
-                    for (let i = unaskedQuestions.length - 1; i > 0; i--) {
+                    for (let i = quizSessions[currentQuizId].length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
-                        [unaskedQuestions[i], unaskedQuestions[j]] = [unaskedQuestions[j], unaskedQuestions[i]];
+                        [quizSessions[currentQuizId][i], quizSessions[currentQuizId][j]] = [quizSessions[currentQuizId][j], quizSessions[currentQuizId][i]];
                     }
                 }
 
-                if (unaskedQuestions.length > 0) {
+                if (quizSessions[currentQuizId].length > 0) {
                     // Load the next question from the pool
-                    currentQuizQuestion = unaskedQuestions.pop();
+                    currentQuizQuestion = quizSessions[currentQuizId].pop();
 
                     // Set up Quiz Page UI
                     quizArea.classList.remove('hidden');
                     storyText.classList.remove('text-center'); 
                     
                     // Display the question with current count
-                    const currentQNum = quizQuestions.length - unaskedQuestions.length;
-                    storyText.textContent = `Question ${currentQNum}/${quizQuestions.length}: ${currentQuizQuestion.question}`; 
+                    const totalQuestions = pool.length;
+                    const currentQNum = totalQuestions - quizSessions[currentQuizId].length;
+                    storyText.textContent = `Question ${currentQNum}/${totalQuestions}: ${currentQuizQuestion.question}`; 
                     
                     // Populate options
                     quizButtons.forEach(btn => {
@@ -341,11 +371,12 @@
                 } else {
                     // Quiz session finished (after the last question was answered and Next was clicked)
                     currentQuizQuestion = null;
+                    isQuizAnswered = true;
                     quizArea.classList.add('hidden');
                     storyText.classList.add('text-center');
-                    storyText.textContent = "Congratulations! You have answered all the questions. Click 'Restart' to read the story again.";
+                    storyText.textContent = "Great work! You’ve answered all the questions. Click 'Next' to continue.";
                     
-                    // Ensure the 'Restart' button is set up
+                    // Ensure the 'Next' button is set up
                     nextBtn.disabled = false;
                 }
                 
@@ -359,10 +390,9 @@
                     playCurrentAudio();
                 }
 
-                // If we navigate away from the quiz page backwards, reset the quiz state
-                if (unaskedQuestions.length < quizQuestions.length) {
-                    unaskedQuestions = [];
-                }
+                // Reset quiz state when leaving a quiz page
+                currentQuizQuestion = null;
+                currentQuizId = null;
             }
             
             // 4. Update Controls
@@ -442,9 +472,12 @@
          * Updates the disabled state of the navigation buttons and their text.
          */
         function updateControls() {
+            const lastPageIndex = storyData.length - 1;
             prevBtn.disabled = currentPageIndex <= 0;
             
             const isQuizPage = storyData[currentPageIndex]?.isQuiz || false;
+            const isLastPage = currentPageIndex === lastPageIndex;
+            const remainingQuestions = currentQuizId ? (quizSessions[currentQuizId]?.length || 0) : 0;
 
             if (isQuizPage) {
                 // Logic for Quiz Page controls
@@ -454,26 +487,22 @@
                 } else {
                     nextBtn.disabled = false;
                     
-                    if (unaskedQuestions.length > 0) {
+                    if (remainingQuestions > 0) {
                         // Questions remain, show 'Next Question'
                         nextBtn.innerHTML = 'Next Question <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>';
                     } else {
-                        // All questions answered, show 'Restart'
-                        nextBtn.innerHTML = 'Restart <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2.158m15.357 2.158H15"></path></svg>';
+                        nextBtn.innerHTML = isLastPage
+                            ? 'Restart <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2.158m15.357 2.158H15"></path></svg>'
+                            : 'Continue <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>';
                     }
                 }
             } else {
                 // Logic for Story Page controls
-                nextBtn.disabled = false; // Always allow moving to next page/quiz
-                nextBtn.innerHTML = 'Next <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>';
-                
-                // If on the *final* story page (before the quiz), ensure the button is enabled.
-                if (currentPageIndex === QUIZ_INDEX - 1) {
-                     nextBtn.disabled = false;
-                } else if (currentPageIndex === QUIZ_INDEX) {
-                    // This block should not be hit here, but if it is, restart.
-                    nextBtn.disabled = false;
+                nextBtn.disabled = false; // Always allow moving forward
+                if (isLastPage) {
                     nextBtn.innerHTML = 'Restart <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2.158m15.357 2.158H15"></path></svg>';
+                } else {
+                    nextBtn.innerHTML = 'Next <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>';
                 }
             }
             
@@ -516,22 +545,30 @@
         // Next Button
         nextBtn.addEventListener('click', () => {
             const isQuizPage = storyData[currentPageIndex]?.isQuiz || false;
-            const isLastStoryPage = currentPageIndex === QUIZ_INDEX - 1;
+            const lastPageIndex = storyData.length - 1;
 
             if (isQuizPage) {
-                if (unaskedQuestions.length > 0) {
-                    // Load next question
-                    loadStoryPage(QUIZ_INDEX); 
+                const remainingQuestions = currentQuizId ? (quizSessions[currentQuizId]?.length || 0) : 0;
+                if (remainingQuestions > 0) {
+                    // Load next question on the same quiz page
+                    loadStoryPage(currentPageIndex); 
                 } else {
-                    // Quiz finished, "Next" acts as "Restart"
+                    // Quiz finished, move to the next story page if it exists, otherwise restart
+                    const nextIndex = currentPageIndex + 1;
+                    if (nextIndex < storyData.length) {
+                        loadStoryPage(nextIndex);
+                    } else {
+                        loadStoryPage(0);
+                    }
+                }
+            } else {
+                const nextIndex = currentPageIndex + 1;
+                if (nextIndex < storyData.length) {
+                    loadStoryPage(nextIndex);
+                } else {
+                    // Restart once we've reached the end of all pages
                     loadStoryPage(0);
                 }
-            } else if (isLastStoryPage) {
-                // Transition from last story page to the quiz trigger page (Index 15)
-                loadStoryPage(QUIZ_INDEX);
-            } else if (currentPageIndex < QUIZ_INDEX) {
-                // Normal page progression
-                loadStoryPage(currentPageIndex + 1);
             }
         });
 
