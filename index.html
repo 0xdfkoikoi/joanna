@@ -23,6 +23,9 @@
             color: white !important;
             border: 3px solid #dc2626; /* Tailwind red-600 */
         }
+        #nav-toggle-icon {
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -35,6 +38,34 @@
             <h1 class="text-xl sm:text-3xl font-extrabold">🚀 English with Joanna</h1>
             <p class="text-xs sm:text-sm opacity-90">Listen, Read, and Learn!</p>
         </header>
+
+        <!-- Story Navigation Bar with Toggle -->
+        <div class="bg-indigo-50 border-b border-indigo-200">
+            <!-- Toggle Button -->
+            <div class="flex justify-center py-2">
+                <button id="nav-toggle-btn" class="px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition duration-200 shadow-sm flex items-center gap-2">
+                    <span id="nav-toggle-text">Show Stories</span>
+                    <svg id="nav-toggle-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Navigation Menu (Hidden by default) -->
+            <nav id="story-nav" class="hidden px-2 sm:px-4 pb-2 flex flex-wrap justify-center gap-2 sm:gap-3">
+                <button data-story="0" class="story-nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-indigo-700 hover:bg-indigo-100 transition duration-200 border border-indigo-300">
+                    Home
+                </button>
+                <button data-story="1" class="story-nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-indigo-700 hover:bg-indigo-100 transition duration-200 border border-indigo-300">
+                    🐰 Hare & Tortoise
+                </button>
+                <button data-story="2" class="story-nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-indigo-700 hover:bg-indigo-100 transition duration-200 border border-indigo-300">
+                    🐱 Joanna & the Cat
+                </button>
+                <button data-story="3" class="story-nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-indigo-700 hover:bg-indigo-100 transition duration-200 border border-indigo-300">
+                    ⭐ Joanna & the Star
+                </button>
+            </nav>
+        </div>
 
         <!-- Story Content Area -->
         <!-- Reduced vertical space (space-y-4) compared to previous (space-y-6) -->
@@ -52,6 +83,18 @@
             <div id="text-area-wrapper" class="bg-white p-3 sm:p-4 rounded-lg shadow-inner border border-gray-200 min-h-[4rem] sm:min-h-[5rem] flex items-center justify-center">
                 <!-- Reduced text size: text-lg on mobile, text-xl on desktop -->
                 <p id="story-text" class="text-lg md:text-xl text-gray-800 font-semibold text-center leading-relaxed">Click "Next" to begin the story!</p>
+            </div>
+
+            <!-- Story Choice Area -->
+            <div id="choice-area" class="space-y-3 hidden pt-3">
+                <p class="text-base sm:text-xl text-gray-700 font-medium text-center" id="choice-title">What would you like to do?</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <!-- Choice Buttons - Styled with purple/indigo theme -->
+                    <button data-choice="A" id="choice-A" class="choice-btn px-3 py-2 sm:px-4 sm:py-3 bg-purple-100 text-purple-800 text-base sm:text-lg font-bold rounded-xl hover:bg-purple-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">A: Option A</button>
+                    <button data-choice="B" id="choice-B" class="choice-btn px-3 py-2 sm:px-4 sm:py-3 bg-purple-100 text-purple-800 text-base sm:text-lg font-bold rounded-xl hover:bg-purple-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left">B: Option B</button>
+                    <button data-choice="C" id="choice-C" class="choice-btn px-3 py-2 sm:px-4 sm:py-3 bg-purple-100 text-purple-800 text-base sm:text-lg font-bold rounded-xl hover:bg-purple-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left hidden">C: Option C</button>
+                    <button data-choice="D" id="choice-D" class="choice-btn px-3 py-2 sm:px-4 sm:py-3 bg-purple-100 text-purple-800 text-base sm:text-lg font-bold rounded-xl hover:bg-purple-200 transition duration-150 shadow-md transform hover:scale-[1.01] active:scale-[0.99] text-left hidden">D: Option D</button>
+                </div>
             </div>
 
             <!-- Quiz Area (Buttons for Answers - Reduced Size) -->
@@ -236,16 +279,50 @@
             { image: GITHUB_BASE + '22.jpg', audio: GITHUB_BASE + '22.mp3', text: "joanna is the little girl who lived in some beautifull villages in Norway. one evening joanna looked up to the sky as usual, but that night was different" },
             { image: GITHUB_BASE + '23.jpeg', audio: GITHUB_BASE + '23.mp3', text: "that night some star twinkled extra bright, and it look closer than usual" },
             { image: GITHUB_BASE + '24.jpg', audio: GITHUB_BASE + '24.mp3', text: "A little star floated closer and closer until it was right beside joanna. the little star says HELLO joanna I'm lumi and joanna says HELLO lumi I'm joanna" },
-            { image: GITHUB_BASE + '25.jpg', audio: GITHUB_BASE + '25.mp3', text: "Joanna do you want come with me to see the sky? lumi says. Lumi smiled and sparkled softly" },
+            { 
+                image: GITHUB_BASE + '25.jpg', 
+                audio: GITHUB_BASE + '25.mp3', 
+                text: "Joanna do you want come with me to see the sky? lumi says. Lumi smiled and sparkled softly",
+                hasChoice: true,
+                choices: {
+                    A: "Yes, Lumi! I want to see the sky!",
+                    B: "I'm not sure, it seems scary..."
+                },
+                choicePaths: {
+                    A: 26, // Goes to the next page (normal path - says yes)
+                    B: 33  // Alternative path - we'll add this alternative ending page
+                }
+            },
             { image: GITHUB_BASE + '26.jpg', audio: GITHUB_BASE + '26.mp3', text: "Joanna clapped her hands. Yes, Lumi! I want to see the sky!" },
             { image: GITHUB_BASE + '27.jpg', audio: GITHUB_BASE + '27.mp3', text: "Lumi glowed bright and gentle. Hold on, Joanna. Up, up, up they floated into the night sky. The air felt cool and quiet. Below them, Joanna saw her beautiful village in Norway — small houses, glowing lights, and snowy mountains" },
             { image: GITHUB_BASE + '28.jpg', audio: GITHUB_BASE + '28.mp3', text: "“Look, Joanna,” said Lumi. “That is the Moon.” “The Moon is round and bright,” Joanna said. “Yes,” Lumi twinkled. “The Moon goes around the Earth. It shines because the Sun gives it light.”" },
             { image: GITHUB_BASE + '29.jpg', audio: GITHUB_BASE + '29.mp3', text: "They floated higher. “There are many stars,” Joanna whispered. “Stars are very hot,” Lumi said. “They are big balls of glowing gas. They give light and warmth. ”Joanna nodded slowly." },
             { image: GITHUB_BASE + '30.jpg', audio: GITHUB_BASE + '30.mp3', text: "“What are those round lights?” she asked. “Those are planets,” Lumi replied. “Planets travel around the Sun. Earth is your home. ”Joanna smiled and waved to Earth far below. “I love my home,” she said." },
             { image: GITHUB_BASE + '31.jpg', audio: GITHUB_BASE + '31.mp3', text: "Lumi’s light grew softer. “It is time to go back now. ”Joanna hugged the little star. “Thank you for showing me the sky, Lumi. ”Lumi twinkled happily. “Look up every night, Joanna. I will always be there" },
-            { image: GITHUB_BASE + '32.jpg', audio: GITHUB_BASE + '32.mp3', text: "Slowly, Joanna floated back to her bed. That night, she fell asleep with a smile dreaming of stars, planets, and her little friend Lumi. And every night after that, when a star twinkled extra bright, Joanna whispered, “Good night, Lumi." }
+            { image: GITHUB_BASE + '32.jpg', audio: GITHUB_BASE + '32.mp3', text: "Slowly, Joanna floated back to her bed. That night, she fell asleep with a smile dreaming of stars, planets, and her little friend Lumi. And every night after that, when a star twinkled extra bright, Joanna whispered, Good night, Lumi." },
+            
+            // Alternative path: If Joanna chose not to go with Lumi (choice B from page 25)
+            { image: GITHUB_BASE + '24.jpg', audio: GITHUB_BASE + '24.mp3', text: "Joanna thought about it for a moment. I'm a bit scared, she said softly. Lumi smiled understandingly. That's okay, Joanna. I'll always be here if you change your mind. Look up at the stars and I'll be watching over you. Joanna felt comforted and went to bed, knowing she had a friend in the stars." }
  
         ];
+
+        // --- STORY NAVIGATION DATA ---
+        // Defines the start index for each story section
+        const storyNavigation = {
+            0: { name: "Home", startIndex: 0 },  // Intro page
+            1: { name: "Hare & Tortoise", startIndex: 1 },  // Hare & Tortoise starts at index 1
+            2: { name: "Joanna & the Cat", startIndex: 16 },  // Joanna & Cat starts at index 16 (after Hare quiz)
+            3: { name: "Joanna & the Star", startIndex: 23 }  // Joanna & Star starts at index 23 (after Joanna quiz)
+        };
+
+        // Helper function to determine which story section the current page belongs to
+        function getCurrentStoryId(pageIndex) {
+            if (pageIndex === 0) return 0; // Home/Intro
+            if (pageIndex >= 1 && pageIndex <= 15) return 1; // Hare & Tortoise (includes quiz)
+            if (pageIndex >= 16 && pageIndex <= 22) return 2; // Joanna & Cat (includes quiz)
+            if (pageIndex >= 23) return 3; // Joanna & Star
+            return 0;
+        }
 
         // --- State Variables ---
         let currentPageIndex = -1; // Start at -1 to show a welcome screen first
@@ -274,6 +351,19 @@
         const quizFeedback = document.getElementById('quiz-feedback');
         const quizButtons = document.querySelectorAll('.quiz-btn');
         const quizQuestionWrapper = document.getElementById('text-area-wrapper');
+        
+        // Choice DOM Elements
+        const choiceArea = document.getElementById('choice-area');
+        const choiceButtons = document.querySelectorAll('.choice-btn');
+        let isChoiceMade = false;
+        
+        // Navigation DOM Elements
+        const storyNavButtons = document.querySelectorAll('.story-nav-btn');
+        const storyNav = document.getElementById('story-nav');
+        const navToggleBtn = document.getElementById('nav-toggle-btn');
+        const navToggleText = document.getElementById('nav-toggle-text');
+        const navToggleIcon = document.getElementById('nav-toggle-icon');
+        let isNavOpen = false;
 
         /**
          * Loads and displays the specified story page.
@@ -291,6 +381,7 @@
             currentPageIndex = index;
             const page = storyData[index];
             const isQuizPage = page.isQuiz || false;
+            const hasChoice = page.hasChoice || false;
 
             // 1. Reset Quiz UI and State
             quizArea.classList.add('hidden');
@@ -302,6 +393,15 @@
             });
             isQuizAnswered = false;
             currentQuizQuestion = null; // Clear the previous question
+
+            // Reset Choice UI and State
+            choiceArea.classList.add('hidden');
+            choiceButtons.forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+                btn.disabled = false;
+                btn.classList.add('hidden'); // Hide all by default
+            });
+            isChoiceMade = false;
 
             // 2. Update UI state (Loading)
             storyImage.style.opacity = '0';
@@ -395,6 +495,36 @@
                     nextBtn.disabled = false;
                 }
                 
+            } else if (hasChoice) {
+                // --- STORY PAGE WITH CHOICE LOGIC ---
+                storyText.classList.add('text-center');
+                storyText.textContent = page.text;
+                
+                // Show choice area and populate choices
+                choiceArea.classList.remove('hidden');
+                const choiceKeys = Object.keys(page.choices);
+                
+                choiceButtons.forEach((btn, idx) => {
+                    const choiceKey = btn.getAttribute('data-choice');
+                    if (choiceKeys.includes(choiceKey)) {
+                        btn.textContent = `${choiceKey}: ${page.choices[choiceKey]}`;
+                        btn.classList.remove('hidden');
+                    } else {
+                        btn.classList.add('hidden');
+                    }
+                });
+                
+                // Disable next button until choice is made
+                nextBtn.disabled = true;
+                
+                // Attempt to play audio
+                if (index >= 0) {
+                    playCurrentAudio();
+                }
+
+                // Reset quiz state when leaving a quiz page
+                currentQuizQuestion = null;
+                currentQuizId = null;
             } else {
                 // --- STORY PAGE LOGIC ---
                 storyText.classList.add('text-center');
@@ -412,6 +542,28 @@
             
             // 4. Update Controls
             updateControls();
+            
+            // 5. Update Navigation Bar
+            updateNavigationBar();
+        }
+
+        /**
+         * Updates the navigation bar to highlight the current story.
+         */
+        function updateNavigationBar() {
+            const currentStoryId = getCurrentStoryId(currentPageIndex);
+            storyNavButtons.forEach(btn => {
+                const storyId = parseInt(btn.getAttribute('data-story'));
+                if (storyId === currentStoryId) {
+                    // Highlight current story
+                    btn.classList.remove('bg-white', 'text-indigo-700', 'border-indigo-300');
+                    btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+                } else {
+                    // Reset to default style
+                    btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
+                    btn.classList.add('bg-white', 'text-indigo-700', 'border-indigo-300');
+                }
+            });
         }
 
         /**
@@ -482,6 +634,37 @@
             updateControls();
         }
 
+        /**
+         * Handles a story choice selection.
+         * @param {string} selectedChoice The letter A, B, C, or D selected by the user.
+         */
+        function handleStoryChoice(selectedChoice) {
+            if (isChoiceMade) return;
+
+            const page = storyData[currentPageIndex];
+            if (!page.hasChoice || !page.choicePaths) return;
+
+            isChoiceMade = true;
+            const selectedButton = document.querySelector(`.choice-btn[data-choice="${selectedChoice}"]`);
+
+            // Highlight selected choice
+            choiceButtons.forEach(btn => btn.disabled = true);
+            selectedButton.classList.add('correct');
+
+            // Get the next page index based on the choice
+            const nextPageIndex = page.choicePaths[selectedChoice];
+            if (nextPageIndex !== undefined && nextPageIndex < storyData.length) {
+                // Navigate to the chosen path after a short delay for visual feedback
+                setTimeout(() => {
+                    loadStoryPage(nextPageIndex);
+                }, 500);
+            } else {
+                // If no path specified, just enable next button to continue normally
+                nextBtn.disabled = false;
+                updateControls();
+            }
+        }
+
 
         /**
          * Updates the disabled state of the navigation buttons and their text.
@@ -490,11 +673,17 @@
             const lastPageIndex = storyData.length - 1;
             prevBtn.disabled = currentPageIndex <= 0;
             
-            const isQuizPage = storyData[currentPageIndex]?.isQuiz || false;
+            const page = storyData[currentPageIndex];
+            const isQuizPage = page?.isQuiz || false;
+            const hasChoice = page?.hasChoice || false;
             const isLastPage = currentPageIndex === lastPageIndex;
             const remainingQuestions = currentQuizId ? (quizSessions[currentQuizId]?.length || 0) : 0;
 
-            if (isQuizPage) {
+            if (hasChoice && !isChoiceMade) {
+                // Choice page - disable next until choice is made
+                nextBtn.disabled = true;
+                nextBtn.innerHTML = 'Choose an option <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>';
+            } else if (isQuizPage) {
                 // Logic for Quiz Page controls
                 if (!isQuizAnswered) {
                     nextBtn.disabled = true;
@@ -598,6 +787,43 @@
         quizButtons.forEach(button => {
             button.addEventListener('click', (event) => {
                 handleQuizAnswer(event.currentTarget.getAttribute('data-answer'));
+            });
+        });
+
+        // Choice Button Listeners
+        choiceButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                handleStoryChoice(event.currentTarget.getAttribute('data-choice'));
+            });
+        });
+
+        // Story Navigation Toggle Button
+        navToggleBtn.addEventListener('click', () => {
+            isNavOpen = !isNavOpen;
+            if (isNavOpen) {
+                storyNav.classList.remove('hidden');
+                navToggleText.textContent = 'Hide Stories';
+                navToggleIcon.style.transform = 'rotate(180deg)';
+            } else {
+                storyNav.classList.add('hidden');
+                navToggleText.textContent = 'Show Stories';
+                navToggleIcon.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Story Navigation Button Listeners
+        storyNavButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const storyId = parseInt(event.currentTarget.getAttribute('data-story'));
+                const storyInfo = storyNavigation[storyId];
+                if (storyInfo) {
+                    loadStoryPage(storyInfo.startIndex);
+                    // Optionally close the nav after selection (uncomment if desired)
+                    // isNavOpen = false;
+                    // storyNav.classList.add('hidden');
+                    // navToggleText.textContent = 'Show Stories';
+                    // navToggleIcon.style.transform = 'rotate(0deg)';
+                }
             });
         });
 
