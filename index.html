@@ -64,6 +64,9 @@
                 <button data-story="3" class="story-nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-indigo-700 hover:bg-indigo-100 transition duration-200 border border-indigo-300">
                     ⭐ Joanna & the Star
                 </button>
+                <button data-story="4" class="story-nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-indigo-700 hover:bg-indigo-100 transition duration-200 border border-indigo-300">
+                    🧠 Joanna & the Power of Why
+                </button>
             </nav>
         </div>
 
@@ -256,10 +259,45 @@
                     },
                     correctAnswer: "B"
                 }
+            ],
+            powerwhy: [
+                {
+                    audio: GITHUB_BASE + '33.mp3',
+                    question: "Why does Joanna keep asking why during her new adventure?",
+                    options: {
+                        A: "She wants to annoy her friends",
+                        B: "She is trying to avoid chores",
+                        C: "She is curious and wants to understand things better", // Correct
+                        D: "She forgot the answers from school"
+                    },
+                    correctAnswer: "C"
+                },
+                {
+                    audio: GITHUB_BASE + '34.mp3',
+                    question: "What happens when Joanna asks why about the garden plants?",
+                    options: {
+                        A: "The plants stop growing",
+                        B: "She learns how sunlight and water help them grow", // Correct
+                        C: "She gets bored and walks away",
+                        D: "She decides plants do not matter"
+                    },
+                    correctAnswer: "B"
+                },
+                {
+                    audio: GITHUB_BASE + '35.mp3',
+                    question: "How does the power of why make Joanna feel?",
+                    options: {
+                        A: "More confused than before",
+                        B: "Tired of learning",
+                        C: "Excited because every answer leads to new ideas", // Correct
+                        D: "Unhappy with her friends"
+                    },
+                    correctAnswer: "C"
+                }
             ]
         };
 
-        // --- STORY DATA (1 Intro + 14 Hare/Tortoise Pages + Hare Quiz + 6 Joanna Pages + Joanna Quiz = 23 pages total) ---
+        // --- STORY DATA (Intro + multiple Joanna adventures + quizzes) ---
         const storyData = [
             // Page 0 (Index 0): INTRO PAGE
             {
@@ -330,6 +368,25 @@
                 text: "You have finished Joanna and the Little Star story! Now, test your knowledge.",
                 isQuiz: true,
                 quizId: 'joannastar'
+            },
+
+            // Joanna and the Power of Why (placeholder text; update as needed)
+            { image: GITHUB_BASE + '33.jpg', audio: GITHUB_BASE + '33.mp3', text: "Joanna and the Power of Why Joanna was a little girl who asked why. “Why is the sky blue? “Why do ants work together? “Why do stars shine at night?” Joanna was a little different from most kids. Some children liked to run and shout. Some liked to play games all day. But Joanna loved books.." },
+            { image: GITHUB_BASE + '34.jpg', audio: GITHUB_BASE + '34.mp3', text: "She read books in the morning" },
+            { image: GITHUB_BASE + '35.jpg', audio: GITHUB_BASE + '35.mp3', text: "She read books in the afternoon." },
+            { image: GITHUB_BASE + '36.jpg', audio: GITHUB_BASE + '36.mp3', text: "She read books before bedtime. Each book helped her answer a question in her mind. When Joanna did not understand, she asked her father." },
+            { image: GITHUB_BASE + '37.jpg', audio: GITHUB_BASE + '37.mp3', text: "“Papa, why does the Moon follow us?” she asked. Her father smiled and sat beside her. “The Moon looks like it follows us,” he said gently, “but it stays in the sky while the Earth moves.” “Oh,” Joanna said softly. Her father never rushed. He never said, “Not now.” He listened. He answered. And sometimes he said, “Let’s find the answer together.” Joanna loved that.." },
+            { image: GITHUB_BASE + '38.jpg', audio: GITHUB_BASE + '38.mp3', text: "As Joanna grew, her questions grew too. “Why does light move?”, “Why does energy change?”, “Why can science help people?” She kept reading, She kept thinking, She kept asking why. Joanna became the best student at her university. She studied day and night—not because she had to, but because she loved to learn.." },
+            { image: GITHUB_BASE + '39.jpg', audio: GITHUB_BASE + '39.mp3', text: "One day, Joanna made a great invention. It helped people. It helped the Earth. Scientists around the world were amazed. Joanna received the Nobel Prize for her invention. She was the youngest scientist ever to receive it. When Joanna stood on the big stage, she smiled." },
+            { image: GITHUB_BASE + '40.jpg', audio: GITHUB_BASE + '40.mp3', text: "She remembered her books. She remembered her questions. She remembered her father’s patient voice. And she knew A little girl who asks why, a father who listens, and a love for learning can change the world" },
+
+            // Quiz after Joanna and the Power of Why
+            {
+                image: 'https://placehold.co/800x450/4f46e5/ffffff?text=QUIZ+TIME',
+                audio: GITHUB_BASE + '33.mp3',
+                text: "You have finished Joanna and the Power of Why! Now, test your knowledge.",
+                isQuiz: true,
+                quizId: 'powerwhy'
             }
  
         ];
@@ -340,7 +397,8 @@
             0: { name: "Home", startIndex: 0 },  // Intro page
             1: { name: "Hare & Tortoise", startIndex: 1 },  // Hare & Tortoise starts at index 1
             2: { name: "Joanna & the Cat", startIndex: 16 },  // Joanna & Cat starts at index 16 (after Hare quiz)
-            3: { name: "Joanna & the Star", startIndex: 23 }  // Joanna & Star starts at index 23 (after Joanna quiz)
+            3: { name: "Joanna & the Star", startIndex: 23 },  // Joanna & Star starts at index 23 (after Joanna quiz)
+            4: { name: "Joanna & the Power of Why", startIndex: 36 }  // New story starts after Star quiz
         };
 
         // Helper function to determine which story section the current page belongs to
@@ -348,7 +406,8 @@
             if (pageIndex === 0) return 0; // Home/Intro
             if (pageIndex >= 1 && pageIndex <= 15) return 1; // Hare & Tortoise (includes quiz)
             if (pageIndex >= 16 && pageIndex <= 22) return 2; // Joanna & Cat (includes quiz)
-            if (pageIndex >= 23) return 3; // Joanna & Star
+            if (pageIndex >= 23 && pageIndex <= 35) return 3; // Joanna & Star
+            if (pageIndex >= 36) return 4; // Joanna & the Power of Why
             return 0;
         }
 
