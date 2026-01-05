@@ -75,12 +75,16 @@
         <main class="flex-grow p-4 sm:p-6 md:p-8 space-y-4">
             
             <!-- Image Display -->
-            <div class="relative bg-gray-200 rounded-lg overflow-hidden border-4 border-indigo-200 aspect-[16/10] sm:aspect-video flex items-center justify-center">
+            <div class="relative bg-gray-200 rounded-lg overflow-hidden border-4 border-indigo-200 aspect-[16/10] sm:aspect-video">
+                <div id="tap-prev" class="absolute inset-y-0 left-0 w-1/2 cursor-pointer z-20"></div>
+                <div id="tap-next" class="absolute inset-y-0 right-0 w-1/2 cursor-pointer z-20"></div>
                 <!-- Image element with error fallback -->
-                <img id="story-image" src="" alt="Story illustration" class="w-full h-full object-contain transition-opacity duration-500"
-                     onerror="this.onerror=null; this.src='https://placehold.co/800x450/ef4444/ffffff?text=Image+Load+Error'; document.getElementById('loading-indicator').classList.add('hidden');">
-                <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-70 text-white text-lg font-bold hidden">Loading...</div>
-            </div>
+                <img id="story-image" src="" alt="story illustration"
+                class="w-full h-full object-contain transition-opacity duration-500"
+                onerror="this.onerror=null; this.src='https://placehold.co/800x450/ef4444/ffffff?text=Image+Load+Error'; document.getElementById('loading-indicator').classList.add('hidden');">
+                
+                <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-70 text-white text-lg font-bold hidden">loading...</div>
+                </div>
 
             <!-- Subtitle/Text Area (Caption - Reduced Font Size) -->
             <div id="text-area-wrapper" class="bg-white p-3 sm:p-4 rounded-lg shadow-inner border border-gray-200 min-h-[4rem] sm:min-h-[5rem] flex items-center justify-center">
@@ -753,6 +757,7 @@
         }
 
 
+
         /**
          * Updates the disabled state of the navigation buttons and their text.
          */
@@ -860,6 +865,21 @@
                     // Restart once we've reached the end of all pages
                     loadStoryPage(0);
                 }
+            }
+        });
+        const tapPrev = document.getElementById('tap-prev');
+        const tapNext = document.getElementById('tap-next');
+
+        tapPrev.addEventListener('click', () => {
+            if (!prevBtn.disabled && currentPageIndex > 0) {
+                loadStoryPage(currentPageIndex - 1);
+            }
+        });
+
+        tapNext.addEventListener('click', () => {
+            if (!nextBtn.disabled) {
+                nextBtn.click();
+
             }
         });
 
