@@ -67,6 +67,9 @@
                 <button data-story="4" class="story-nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-indigo-700 hover:bg-indigo-100 transition duration-200 border border-indigo-300">
                     🧠 Joanna & the Power of Why
                 </button>
+                <button data-story="5" class="story-nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-indigo-700 hover:bg-indigo-100 transition duration-200 border border-indigo-300">
+                    Joanna The Nature Keeper
+                </button>
             </nav>
         </div>
 
@@ -298,6 +301,20 @@
                     },
                     correctAnswer: "C"
                 }
+            ],
+            joannanaturekeeper: [
+                { 
+                    audio: GITHUB_BASE + '41.mp3',
+                    question: "kenapa ayah joanna sangat tampan?",
+                    options: {
+                        A: "karena memang sudah takdir",
+                        B: "karena operasi plastik",
+                        C: "karena di suruh istri",
+                        D: "karena sering di warung",
+                    },
+                    correctAnswer: "A"
+                }
+
             ]
         };
 
@@ -391,7 +408,26 @@
                 text: "You have finished Joanna and the Power of Why! Now, test your knowledge.",
                 isQuiz: true,
                 quizId: 'powerwhy'
-            }
+            },
+
+            //Joanna The Nature Keeper
+            { image: GITHUB_BASE + '41.jpg', audio: GITHUB_BASE + '41.mp3', text: "Joanna the Nature Keeper, Joanna lived near a wide green forest where tall trees touched the sky and birds sang every morning. When the wind blew, the leaves whispered soft songs. Joanna loved to listen." },
+            { image: GITHUB_BASE + '42.jpg', audio: GITHUB_BASE + '42.mp3', text: "She visited the forest every day. Joanna knew the forest was not just beautiful—it was important. “Trees help us breathe,” Joanna said to herself. “They make clean air called oxygen.” She learned this from books, from her parents, and from watching nature closely. One afternoon, Joanna heard loud sounds. Chop. Chop." },
+            { image: GITHUB_BASE + '43.jpg', audio: GITHUB_BASE + '43.mp3', text: "People were cutting trees. Some threw trash on the ground. The forest felt sad and quiet. Birds flew away. The sun felt hotter." },
+            { image: GITHUB_BASE + '44.jpg', audio: GITHUB_BASE + '44.mp3', text: "Joanna’s heart beat fast—but she was brave. She walked closer. “Please stop,” Joanna said kindly. “Trees are alive.” The people looked surprised." },
+            { image: GITHUB_BASE + '45.jpg', audio: GITHUB_BASE + '45.mp3', text: "She pointed to the leaves. “Leaves catch sunlight,” she said. “They make food and give shade.” She picked up a plastic bottle. “Trash hurts animals and water.” Joanna says" },
+            { image: GITHUB_BASE + '46.jpg', audio: GITHUB_BASE + '46.mp3', text: "She picked up a plastic bottle. “Trash hurts animals and water.” Joanna explain to the people. At first, no one moved. So Joanna began to act. She cleaned the ground. She planted a small tree. She asked her friends to help." },
+            { image: GITHUB_BASE + '47.jpg', audio: GITHUB_BASE + '47.mp3', text: "One by one, people joined. They stopped cutting. They planted more trees. They cleaned the forest together." },
+            { image: GITHUB_BASE + '48.jpg', audio: GITHUB_BASE + '48.mp3', text: "Days passed. Birds came back. Flowers bloomed. The air felt cool again. The forest smiled. People whispered her name. “She is the Nature Keeper.” Joanna smiled too. She knew one thing When we protect nature, nature protects us. And the forest stood strong—because one little girl chose to care" },
+
+            { 
+                image : 'https://placehold.co/800x450/4f46e5/ffffff?text=QUIZ+TIME',
+                audio: GITHUB_BASE + 'q1.mp3',
+                text: "You have finished Joanna the Nature Keeper! Now, test your knowledge.",
+                isQuiz: true,
+                quizId: 'joannanaturekeeper'
+            },
+            
  
         ];
 
@@ -402,7 +438,8 @@
             1: { name: "Hare & Tortoise", startIndex: 1 },  // Hare & Tortoise starts at index 1
             2: { name: "Joanna & the Cat", startIndex: 16 },  // Joanna & Cat starts at index 16 (after Hare quiz)
             3: { name: "Joanna & the Star", startIndex: 23 },  // Joanna & Star starts at index 23 (after Joanna quiz)
-            4: { name: "Joanna & the Power of Why", startIndex: 36 }  // New story starts after Star quiz
+            4: { name: "Joanna & the Power of Why", startIndex: 36 },  // New story starts after Star quiz
+            5: { name: "Joanna The Nature Keeper", startIndex: 45 } // teuing ah lieur
         };
 
         // Helper function to determine which story section the current page belongs to
@@ -411,7 +448,8 @@
             if (pageIndex >= 1 && pageIndex <= 15) return 1; // Hare & Tortoise (includes quiz)
             if (pageIndex >= 16 && pageIndex <= 22) return 2; // Joanna & Cat (includes quiz)
             if (pageIndex >= 23 && pageIndex <= 35) return 3; // Joanna & Star
-            if (pageIndex >= 36) return 4; // Joanna & the Power of Why
+            if (pageIndex >= 36 && pageIndex <= 44) return 4; // Joanna & the Power of Why
+            if (pageIndex >= 45) return 5; // Joanna The Nature Keeper
             return 0;
         }
 
